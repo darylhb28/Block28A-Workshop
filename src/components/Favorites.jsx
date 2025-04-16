@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
 import { Routes, Route, Link, useNavigate } from "react-router-dom"
 
+
 export default function Favorites ({}){
     const [favorites, setFavorites] = useState([])
     const [selectedRecipe, setSelectedRecipe] = useState(null)
     const token = localStorage.getItem("token")
 
-    useEffect (()=>{
-        async function getFavorites(){
+    async function getFavorites(){
         try {
             const response = await fetch("https://fsa-recipe.up.railway.app/api/favorites", {
                 headers: {
@@ -17,13 +17,15 @@ export default function Favorites ({}){
             const res = await response.json()
             console.log(res.data)
             setFavorites(res.data)
-
+    
         } catch (error) {
             console.log(error)
         }
-        }
-        getFavorites()
+        }    
 
+    useEffect (()=>{
+
+        getFavorites()
 
     },[])
 
@@ -38,12 +40,13 @@ export default function Favorites ({}){
                 }
               });
               const res = await response.json()
-              console.log(response)
+              if (response.ok) {
+              await getFavorites()}
 
         } catch (error) {
             console.log(error)
         }
-               
+         
 }
 
 const navigate = useNavigate()

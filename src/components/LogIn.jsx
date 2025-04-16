@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import SignUp from "./SignUp"
 import Auth from "./Auth"
@@ -6,6 +6,7 @@ import Auth from "./Auth"
 export default function LogIn ({}){
     const [username, setUsername] = useState(null)
     const token = localStorage.getItem("token")
+    const navigate = useNavigate()
 
     useEffect(()=>{
         async function getUsername(){
@@ -28,6 +29,12 @@ export default function LogIn ({}){
           }
     },[token])
 
+    function logOut(){
+
+        localStorage.removeItem("token")
+        navigate("/login")
+    }
+
 
     if (!token) {
         return (
@@ -45,6 +52,7 @@ export default function LogIn ({}){
     return (
       <div>
         <p>Logged in as {username}</p>
+        <button onClick={logOut}>Log Out</button>
       </div>
     )
 }
