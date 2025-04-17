@@ -59,7 +59,7 @@ function handleClick(recipe){
 
     if (!token) {
         return (
-            <p>Need to be sign up or log in for access to favorites</p>
+            <p>Need to sign up or log in for access to favorites</p>
         )
     }
 
