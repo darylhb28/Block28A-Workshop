@@ -5,6 +5,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom"
 export default function Favorites ({}){
     const [favorites, setFavorites] = useState([])
     const [selectedRecipe, setSelectedRecipe] = useState(null)
+    const [refresh, setRefresh] = useState(false)
     const token = localStorage.getItem("token")
 
     async function getFavorites(){
@@ -27,7 +28,7 @@ export default function Favorites ({}){
 
         getFavorites()
 
-    },[])
+    },[refresh])
 
     async function removeFavorite(recipe){
         const token = localStorage.getItem("token")
@@ -40,8 +41,7 @@ export default function Favorites ({}){
                 }
               });
               const res = await response.json()
-              if (response.ok) {
-              await getFavorites()}
+              setRefresh(prev => !prev)
 
         } catch (error) {
             console.log(error)
