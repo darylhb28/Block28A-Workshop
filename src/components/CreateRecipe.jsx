@@ -14,6 +14,27 @@ export default function CreateRecipe({}){
     const [ingredients, setIngredients] = useState("")
 
     const [successMessage, setSuccessMessage] = useState("")
+    const [customs, setCustoms] = useState([])
+
+
+useEffect(()=>{
+    async function getCustoms(){
+        try {
+            const response = await fetch("https://fsa-recipe.up.railway.app/api/recipes/user-recipes", {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              });
+            const res = await response.json()
+            console.log(res)
+            setCustoms(res)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getCustoms()
+},[])
 
 async function handleSubmit(event){
     event.preventDefault();
@@ -54,8 +75,10 @@ async function handleSubmit(event){
     }
 
     return (
-        <>
-        <form onSubmit={handleSubmit}>
+    <>
+        <form className="recipeForm" onSubmit={handleSubmit}>
+        <h2><strong>Upload a Custom Recipe to the Database</strong></h2>
+        <br />
             <label>
                 Recipe Name
                 <input 
@@ -133,6 +156,20 @@ async function handleSubmit(event){
         {
             successMessage && <p>{successMessage}</p>
         }
+        <br />
+        <h2><strong>Previously Uploaded Recipes</strong></h2>
+        <br />
+        <div className="container">
+            {
+                customs.map((recipe)=>
+                    <div className="recipeCard" key={recipe.idMeal}>
+                        <h2><strong>{recipe.strMeal}</strong></h2>
+                        <img src = {recipe.strMealThumb} style = {{height: "200px"}} />
+                        <br/>
+                    </div>
+                )
+            }
+        </div>
     </>
     )
 }
