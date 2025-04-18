@@ -9,6 +9,7 @@ export default function NavBar ({}){
             <Link to="/login"> Log In </Link>
             <Link to ="/favorites"> My Favorites </Link>
             <Link to = "/random">Recipe of the Day</Link>
+            <Link to="/myrecipes">Custom Recipe</Link>
         </div>
 
 

@@ -5,6 +5,7 @@ import AddFavoriteCall from "./AddFavoriteCall"
 export default function Recipes ({}){
     const [recipes, setRecipes] = useState([])
     const [selectRecipe, setSelectedRecipe] = useState([])
+    const [searchIngredient, setSearchIngredient] = useState("")
 
     useEffect(()=>{
         async function getRecipes (){
@@ -33,15 +34,27 @@ export default function Recipes ({}){
                    
     }
     
-
     const token = localStorage.getItem("token")
 
+    const filteredRecipes = recipes.filter((recipe)=>
+            recipe.strMeal.toLowerCase().includes(searchIngredient.toLowerCase())
+    )
 
     if (!token) {
         return (
+        <>
+                <label className="search">
+                <strong>Search Recipes :  </strong>
+                    <input 
+                    name="searchIngredient" 
+                    onChange={(event)=> setSearchIngredient(event.target.value)} 
+                    value = {searchIngredient}
+                    />
+                </label>
+        
             <div className="container">
             {
-                recipes.map((recipe)=>
+                filteredRecipes.map((recipe)=>
                     <div className="recipeCard" key={recipe.idMeal}>
                         <h2><strong>{recipe.strMeal}</strong></h2>
                         <img src = {recipe.strMealThumb} style = {{height: "200px"}} />
@@ -53,14 +66,25 @@ export default function Recipes ({}){
             }
 
         </div>
+        </>
         )
     }
 
     return (
+
+        <>
+          <label className="search">
+                <strong>Search Recipes :  </strong>
+                    <input 
+                    name="searchIngredient" 
+                    onChange={(event)=> setSearchIngredient(event.target.value)} 
+                    value = {searchIngredient}
+                    />
+            </label>
         
         <div className="container">
             {
-                recipes.map((recipe)=>
+                filteredRecipes.map((recipe)=>
                     <div className="recipeCard" key={recipe.idMeal}>
                         <h2><strong>{recipe.strMeal}</strong></h2>
                         <img src = {recipe.strMealThumb} style = {{height: "200px"}} />
@@ -74,6 +98,7 @@ export default function Recipes ({}){
             }
 
         </div>
+        </>
 
 
     )

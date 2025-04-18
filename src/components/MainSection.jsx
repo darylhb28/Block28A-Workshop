@@ -5,6 +5,7 @@ import LogIn from "./LogIn"
 import SelectedRecipe from "./SelectedRecipe"
 import Home from "./Home"
 import Random from "./Random"
+import CreateRecipe from "./CreateRecipe"
 
 
 export default function MainSection ({}){
@@ -16,7 +17,8 @@ export default function MainSection ({}){
                 <Route path = "/favorites" element={<Favorites/>} />
                 <Route path = "/login" element={<LogIn/>} />
                 <Route path = "/recipes/:id" element={<SelectedRecipe/>}/>
-                <Route path = "random" element={<Random/>}/>
+                <Route path = "/random" element={<Random/>}/>
+                <Route path="/myrecipes" element={<CreateRecipe />}/>
             </Routes>
         </div>
 

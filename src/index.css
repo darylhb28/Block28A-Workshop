@@ -84,3 +84,16 @@ button{
   button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
   }
+
+  .search {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    max-width: 400px;
+    margin: 16px auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
